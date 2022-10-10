@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.9">
       <PrivateAssets>all</PrivateAssets>
@@ -21,7 +22,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Frazze_Business\Frazze_Business.csproj" />
     <ProjectReference Include="..\Frazze_DataAccess\Frazze_DataAccess.csproj" />
+    <ProjectReference Include="..\Frazze_Models\Frazze_Models.csproj" />
   </ItemGroup>
 
 </Project>

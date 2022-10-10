@@ -1,4 +1,7 @@
 using Frazze.Data;
+using Frazze_Business.Repository.IRepository;
+using Frazze_Business.Repository;
+using Frazze_DataAccess;
 using Frazze_DataAccess.Data;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -15,6 +18,10 @@ builder.Services.AddSingleton<WeatherForecastService>();
 // Här
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<IPhrasesRepository, PhrasesRepository>();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
 
