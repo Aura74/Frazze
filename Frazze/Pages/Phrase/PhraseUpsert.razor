@@ -1,25 +1,90 @@
 ﻿@page "/phrase/create"
+@page "/phrase/edit/{id:int}"
 @using Microsoft.AspNetCore.Components
-@using Frazze_Models
+@using Frazze_DataAccess
+@inject IPhrasesRepository _phrasesRepository
+@inject NavigationManager _navigationManager
 
 <div class="row my-2">
-    <h3 class="card-title text-primary mb-3 ml-3">@Title Category</h3>
+    <h3 class="card-title text-primary mb-3 ml-3">@Title Phrase</h3>
 
     <div class="col-10">
-        <EditForm Model="Category">
+    @if (IsLoading)
+    {
+        <div class="text-center">
+            <img src="/images/loading.gif">
+        </div>
+    }
+    else{
+        <EditForm Model="Phrase" OnInvalidSubmit="UpsertPhrase">
+            <DataAnnotationsValidator/>
+            @*<ValidationSummary/>*@
             <div class="form-group">
-                <label>Name</label>
-                <InputText @bind-Value="Category.Phrase" class="form-control"></InputText>
+                <label>Phrase</label>
+                <InputText @bind-Value="Phrase.Phrase" class="form-control"></InputText>
+                    <ValidationMessage For="()=>Phrase.Phrase"></ValidationMessage>
+                <label>Culture</label>
+                <InputText @bind-Value="Phrase.Culture" class="form-control"></InputText>
+                <label>Element</label>
+                <InputText @bind-Value="Phrase.Element" class="form-control"></InputText>
             </div>
             <div class="form-group py-2">
+                @* <button class="btn btn-primary" type="submit">@Title</button>*@
                 <button class="btn btn-primary">@Title</button>
-                <NavLink href="phrase" class="btn btn-secondary">Back to Index</NavLink>
+                    <NavLink href="phrase" class="btn btn-secondary"><i class="bi bi-skip-backward"></i> Back to Index</NavLink>
             </div>
         </EditForm>
+    }
     </div>
 </div>
 
 @code {
-    private PhrasesDTO Category { get; set; } = new PhrasesDTO();
+    [Parameter]
+    public int Id { get; set; }
+
+    private PhrasesDTO Phrase { get; set; } = new PhrasesDTO();
     private string Title { get; set; } = "Create";
+
+    public bool IsLoading { get; set; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Id==0)
+            {
+    //create
+                IsLoading=false;
+            }
+            else
+            {
+    //update
+                Title="Update";
+                await LoadPh();
+            }
+        }
+    }
+
+    private async Task LoadPh()
+    {
+        IsLoading=true;
+        StateHasChanged();
+        Phrase = await _phrasesRepository.Get(Id);
+        IsLoading=false;
+        StateHasChanged();
+    }
+
+    public async Task UpsertPhrase()
+    {
+        if (Phrase.PhraseID==0)
+        {
+            //create
+            await _phrasesRepository.Create(Phrase);
+        }
+        else
+        {
+            //update
+            await _phrasesRepository.Update(Phrase);
+        }
+        _navigationManager.NavigateTo("phrase");
+    }
 }

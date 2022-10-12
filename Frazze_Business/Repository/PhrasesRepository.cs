@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,28 +23,39 @@ namespace Frazze_Business.Repository
             _mapper = mapper;
         }
 
-        public PhrasesDTO Create(PhrasesDTO objDTO)
+        public async Task<PhrasesDTO> Create(PhrasesDTO objDTO)
         {
             var obj = _mapper.Map<PhrasesDTO, Phrases>(objDTO);
+            // Får vara inte vara null
+            obj.Phrase = "Deafult - Phrase";
+            obj.Culture = "Nomal-Culture";
+            obj.Element = "Ett-Element";
+
+            // Får vara null
+            obj.PhraseDescription = "Auto-PhraseDescription";
+            obj.OrginalPhrase = "Auto-OrginalPhrase";
+
+
+
             var addedObj = _db.Phrases.Add(obj);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
             return _mapper.Map<Phrases, PhrasesDTO>(addedObj.Entity);
         }
 
-        public int Delete(int id)
+        public async Task<int> Delete(int id)
         {
             var obj = _db.Phrases.FirstOrDefault(u => u.PhraseID==id);
             if (obj!=null)
             {
                 _db.Phrases.Remove(obj);
-                return _db.SaveChanges();
+                return await _db.SaveChangesAsync();
             }
             return 0;
         }
 
-        public PhrasesDTO Get(int id)
+        public async Task<PhrasesDTO> Get(int id)
         {
-            var obj = _db.Phrases.FirstOrDefault(u => u.PhraseID==id);
+            var obj = await _db.Phrases.FirstOrDefaultAsync(u => u.PhraseID==id);
             if (obj!=null)
             {
                 return _mapper.Map<Phrases, PhrasesDTO>(obj);
@@ -51,24 +63,24 @@ namespace Frazze_Business.Repository
             return new PhrasesDTO();
         }
 
-        public IEnumerable<PhrasesDTO> GetAll()
+        public async Task<IEnumerable<PhrasesDTO>> GetAll()
         {
             return _mapper.Map<IEnumerable<Phrases>, IEnumerable<PhrasesDTO>>(_db.Phrases);
         }
 
-        public PhrasesDTO Update(PhrasesDTO objDTO)
+        public async Task<PhrasesDTO> Update(PhrasesDTO objDTO)
         {
-            var objFromDb = _db.Phrases.FirstOrDefault(u => u.PhraseID==objDTO.PhraseID);
+            var objFromDb = await _db.Phrases.FirstOrDefaultAsync(u => u.PhraseID==objDTO.PhraseID);
             if (objFromDb!=null)
             {
-                objFromDb.Phrase=objDTO.Phrase;
+                objFromDb.Phrase=objDTO.Phrase; 
                 objFromDb.Culture=objDTO.Culture;
                 objFromDb.OrginalPhrase=objDTO.OrginalPhrase;
                 objFromDb.PhraseDescription=objDTO.PhraseDescription;
                 objFromDb.Element=objDTO.Element;
 
                 _db.Phrases.Update(objFromDb);
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
                 return _mapper.Map<Phrases, PhrasesDTO>(objFromDb);
             }
             return objDTO;
