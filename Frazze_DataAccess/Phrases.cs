@@ -11,10 +11,10 @@ namespace Frazze_DataAccess
     {
         [Key]
         public int PhraseID { get; set; }
-        public string Phrase { get; set; }
-        public string Culture { get; set; }
+        public string? Phrase { get; set; }
+        public string? Culture { get; set; }
         public string? OrginalPhrase { get; set; }
         public string? PhraseDescription { get; set; }
-        public string Element { get; set; }
+        public string? Element { get; set; }
     }
 }

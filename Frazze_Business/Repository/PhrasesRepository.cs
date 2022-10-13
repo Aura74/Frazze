@@ -26,16 +26,11 @@ namespace Frazze_Business.Repository
         public async Task<PhrasesDTO> Create(PhrasesDTO objDTO)
         {
             var obj = _mapper.Map<PhrasesDTO, Phrases>(objDTO);
-            // Får vara inte vara null
-            obj.Phrase = "Deafult - Phrase";
-            obj.Culture = "Nomal-Culture";
-            obj.Element = "Ett-Element";
-
-            // Får vara null
-            obj.PhraseDescription = "Auto-PhraseDescription";
-            obj.OrginalPhrase = "Auto-OrginalPhrase";
-
-
+            //obj.Phrase = "Deafult - Phrase";
+            //obj.Culture = "Nomal-Culture";
+            //obj.Element = "Ett-Element";
+            //obj.PhraseDescription = "Auto-PhraseDescription";
+            //obj.OrginalPhrase = "Auto-OrginalPhrase";
 
             var addedObj = _db.Phrases.Add(obj);
             await _db.SaveChangesAsync();
