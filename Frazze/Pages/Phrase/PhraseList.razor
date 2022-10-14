@@ -6,7 +6,7 @@
 
 <div class="row mt-4">
     <div class="col-6">
-        <h4 class="card-title text-primary">Category List</h4>
+        <h4 class="card-title text-primary">Phrase List</h4>
     </div>
     <div class="col-4 offset-2">
         <a href="phrase/create" class="btn btn-primary form-control"><i class="bi bi-plus-lg"></i> Add New Phrase </a>
@@ -38,7 +38,6 @@
                         @objp.Element
                     </td> 
                     <td>
-                        @*<NavLink href="" class="btn-primary btn">Edit</NavLink*@
                                 <NavLink href="@($"phrase/edit/{objp.PhraseID}")" class="btn-primary btn"><i class="bi bi-pencil"></i> Edit</NavLink>
                                 <button class="btn btn-danger" @onclick="()=>HandleDelete(objp.PhraseID)"><i class="bi bi-trash"></i> Delete</button>
                             </td>
@@ -69,11 +68,6 @@
 
 @code {
     private IEnumerable<PhrasesDTO> Phrases { get; set; } = new List<PhrasesDTO>();
-
-    //protected override void OnInitialized()
-    //{
-    //    Phrases = _phrasesRepository.GetAll();
-    //}
     public bool IsLoading { get; set; }
     private int DeletePhId { get; set; } = 0;
 
@@ -104,7 +98,7 @@
         IsLoading=true;
         if (isConfirmed && DeletePhId!=0)
         {
-            await Task.Delay(300);
+            await Task.Delay(200);
     //delete
             await _phrasesRepository.Delete(DeletePhId);
             await LoadPh();

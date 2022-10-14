@@ -1,7 +1,6 @@
 ﻿@page "/phrase/create"
 @page "/phrase/edit/{id:int}"
 @using Microsoft.AspNetCore.Components
-@using Frazze_DataAccess
 @inject IPhrasesRepository _phrasesRepository
 @inject NavigationManager _navigationManager
 
@@ -16,20 +15,20 @@
         </div>
     }
     else{
-        <EditForm Model="Phrase" OnInvalidSubmit="UpsertPhrase">
+            <EditForm Model="PhraseCode" OnValidSubmit="UpsertPhrase">
             <DataAnnotationsValidator/>
             @*<ValidationSummary/>*@
             <div class="form-group">
                 
                 <label>Phrase</label>
-                <InputText @bind-Value="Phrase.Phrase" class="form-control"></InputText>
-                @*<ValidationMessage For="()=>Phrase.Phrase"></ValidationMessage>*@
+                <InputText @bind-Value="PhraseCode.Phrase" class="form-control"></InputText>
+                @*<ValidationMessage For="()=>PhraseCode.PhraseCode"></ValidationMessage>*@
                 
                 <label>Culture</label>
-                <InputText @bind-Value="Phrase.Culture" class="form-control"></InputText>
+                <InputText @bind-Value="PhraseCode.Culture" class="form-control"></InputText>
                
                 <label>Element</label>
-                <InputText @bind-Value="Phrase.Element" class="form-control"></InputText>
+                <InputText @bind-Value="PhraseCode.Element" class="form-control"></InputText>
             </div>
 
             <div class="form-group py-2">
@@ -46,7 +45,7 @@
     [Parameter]
     public int Id { get; set; }
 
-    private PhrasesDTO Phrase { get; set; } = new PhrasesDTO();
+    private PhrasesDTO PhraseCode { get; set; } = new PhrasesDTO();
     private string Title { get; set; } = "Create";
 
     public bool IsLoading { get; set; }
@@ -72,22 +71,22 @@
     {
         IsLoading=true;
         StateHasChanged();
-        Phrase = await _phrasesRepository.Get(Id);
+        PhraseCode = await _phrasesRepository.Get(Id);
         IsLoading=false;
         StateHasChanged();
     }
 
     public async Task UpsertPhrase()
     {
-        if (Phrase.PhraseID==0)
+        if (PhraseCode.PhraseID==0)
         {
             //create
-            await _phrasesRepository.Create(Phrase);
+            await _phrasesRepository.Create(PhraseCode);
         }
         else
         {
             //update
-            await _phrasesRepository.Update(Phrase);
+            await _phrasesRepository.Update(PhraseCode);
         }
         _navigationManager.NavigateTo("phrase");
     }
