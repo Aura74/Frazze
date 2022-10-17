@@ -16,5 +16,8 @@ namespace Frazze_DataAccess
         public string? OrginalPhrase { get; set; }
         public string? PhraseDescription { get; set; }
         public string? Element { get; set; }
+        //public DateTime? created { get; set; }
+        //public int? ApplicationID { get; set; }
+        //public int? PageID { get; set; }
     }
 }
