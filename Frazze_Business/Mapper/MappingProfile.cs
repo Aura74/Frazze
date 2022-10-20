@@ -15,6 +15,7 @@ namespace Frazze_Business.Mapper
         public MappingProfile()
         {
             CreateMap<Phrases, PhrasesDTO>().ReverseMap();
+            CreateMap<Applications, ApplicationsDTO>().ReverseMap();
         }
     }
 }
