@@ -1,0 +1,86 @@
+﻿@page "/application/create"
+@page "/application/edit/{id:int}"
+@using Microsoft.AspNetCore.Components
+@inject IApplicationsRepository _applicationRepository
+@inject NavigationManager _navigationManager
+
+<div class="row my-2">
+    <h3 class="card-title text-primary mb-3 ml-3">@Title Application</h3>
+
+    <div class="col-10">
+    @if (IsLoading)
+    {
+        <div class="text-center">
+            <img src="/images/loading.gif">
+        </div>
+    }
+    else{
+            <EditForm Model="ApplicationCode" OnValidSubmit="UpsertApplication">
+            <div class="form-group">
+                
+                <label>Phrase</label>
+                    <InputText @bind-Value="ApplicationCode.ApplicationName" class="form-control"></InputText>
+                
+                <label>Culture</label>
+                    <InputDate @bind-Value="ApplicationCode.created" class="form-control"></InputDate>
+            </div>
+
+            <div class="form-group py-2">
+                <button class="btn btn-primary">@Title</button>
+                    <NavLink href="application" class="btn btn-secondary"> Back to Index</NavLink>
+            </div>
+        </EditForm>
+    }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private ApplicationsDTO ApplicationCode { get; set; } = new ApplicationsDTO();
+    private string Title { get; set; } = "Create";
+
+    public bool IsLoading { get; set; }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            if (Id==0)
+            {
+    //create
+                IsLoading=false;
+            }
+            else
+            {
+    //update
+                Title="Update";
+                await LoadPh();
+            }
+        }
+    }
+
+    private async Task LoadPh()
+    {
+        IsLoading=true;
+        StateHasChanged();
+        ApplicationCode = await _applicationRepository.Get(Id);
+        IsLoading=false;
+        StateHasChanged();
+    }
+
+    public async Task UpsertApplication()
+    {
+        if (ApplicationCode.ApplicationID==0)
+        {
+            //create
+            await _applicationRepository.Create(ApplicationCode);
+        }
+        else
+        {
+            //update
+            await _applicationRepository.Update(ApplicationCode);
+        }
+        _navigationManager.NavigateTo("application");
+    }
+}

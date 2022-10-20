@@ -9,7 +9,6 @@ namespace Frazze_Models
 {
     public class PhrasesDTO
     {   public int PhraseID { get; set; }
-
         public string? Phrase { get; set; }
         public string? Culture { get; set; }
         public string? OrginalPhrase { get; set; }
