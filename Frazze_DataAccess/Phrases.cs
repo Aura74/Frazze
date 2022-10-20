@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,5 +17,11 @@ namespace Frazze_DataAccess
         public string? OrginalPhrase { get; set; }
         public string? PhraseDescription { get; set; }
         public string? Element { get; set; }
+
+
+
+        public int AppId { get; set; }
+        [ForeignKey("AppId")]
+        public Applications Application { get; set; }
     }
 }
