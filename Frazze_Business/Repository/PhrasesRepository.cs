@@ -73,6 +73,7 @@ namespace Frazze_Business.Repository
                 objFromDb.OrginalPhrase=objDTO.OrginalPhrase;
                 objFromDb.PhraseDescription=objDTO.PhraseDescription;
                 objFromDb.Element=objDTO.Element;
+                objFromDb.AppId=objDTO.AppId;
 
                 _db.Phrases.Update(objFromDb);
                 await _db.SaveChangesAsync();

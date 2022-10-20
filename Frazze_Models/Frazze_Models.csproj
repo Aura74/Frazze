@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Frazze_DataAccess\Frazze_DataAccess.csproj" />
+  </ItemGroup>
+
 </Project>
