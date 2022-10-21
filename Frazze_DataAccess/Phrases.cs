@@ -23,5 +23,10 @@ namespace Frazze_DataAccess
         public int AppId { get; set; }
         [ForeignKey("AppId")]
         public Applications Application { get; set; }
+
+
+        public int CultId { get; set; }
+        [ForeignKey("CultId")]
+        public Cultures Cultures { get; set; }
     }
 }
