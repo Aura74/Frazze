@@ -1,0 +1,112 @@
+﻿@page "/cultures"
+@using Frazze_DataAccess
+@inject ICulturesRepository _cultureRepository
+@inject IJSRuntime _jsRuntime
+
+<_DeleteConfirmation IsParentComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
+
+<div class="row mt-4">
+    <div class="col-6">
+        <h4 class="card-title text-primary">Kultur-Listan</h4>
+    </div>
+    <div class="col-4 offset-2">
+        <a href="cultures/create" class="btn btn-primary form-control"><i class="bi bi-plus-lg"></i> Add New Culture </a>
+    </div>
+    
+    <div class="col-12 p-3">
+        @if (Cultures.Any())
+        {
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Land</th>
+                    <th>Created</th>
+                    <th>Knappar</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var objp in Cultures)
+                {
+                    <tr>
+                        <td>
+                            @objp.CultureID
+                        </td> 
+                        <td>
+                            @objp.Culture
+                        </td> 
+                        <td>
+                            @objp.created
+                        </td> 
+
+                        <td>
+                                <NavLink href="@($"cultures/edit/{objp.CultureID}")" class="btn-primary btn"><i class="bi bi-pencil"></i> Edit</NavLink>
+
+                                    <button class="btn btn-danger" @onclick="()=>HandleDelete(objp.CultureID)"><i class="bi bi-trash"></i> Delete</button>
+                                </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+        
+        else
+        {
+            if (IsLoading)
+            {
+                //loading gif
+                <div class="text-center">
+                    <img src="/images/loading.gif">
+                </div>
+            }
+            else
+            {
+                //no records
+                <p>No recrods found.</p>
+            }
+        }
+
+    </div>
+</div>
+
+@code {
+    private IEnumerable<CulturesDTO> Cultures { get; set; } = new List<CulturesDTO>();
+    public bool IsLoading { get; set; }
+    private int DeleteAppId { get; set; } = 0;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await LoadPh();
+        }
+    }
+    private async Task LoadPh()
+    {
+        IsLoading=true;
+        StateHasChanged();
+        Cultures = await _cultureRepository.GetAll();
+        IsLoading=false;
+        StateHasChanged();
+    }
+
+    private void HandleDelete(int id)
+    {
+        DeleteAppId=id;
+        _jsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
+    }
+
+    public async Task ConfirmDelete_Click(bool isConfirmed)
+    {
+        IsLoading=true;
+        if (isConfirmed && DeleteAppId!=0)
+        {
+            await Task.Delay(200);
+    //delete
+            await _cultureRepository.Delete(DeleteAppId);
+            await LoadPh();
+            await _jsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
+        }
+        IsLoading=false;
+    }
+}
