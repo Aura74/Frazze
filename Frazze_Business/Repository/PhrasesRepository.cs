@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using Frazze_Business.Repository.IRepository;
 using Frazze_DataAccess.Data;
@@ -26,12 +27,6 @@ namespace Frazze_Business.Repository
         public async Task<PhrasesDTO> Create(PhrasesDTO objDTO)
         {
             var obj = _mapper.Map<PhrasesDTO, Phrases>(objDTO);
-            //obj.Phrase = "Deafult - Phrase";
-            //obj.Culture = "Nomal-Culture";
-            //obj.Element = "Ett-Element";
-            //obj.PhraseDescription = "Auto-PhraseDescription";
-            //obj.OrginalPhrase = "Auto-OrginalPhrase";
-
             var addedObj = _db.Phrases.Add(obj);
             await _db.SaveChangesAsync();
             return _mapper.Map<Phrases, PhrasesDTO>(addedObj.Entity);
@@ -60,7 +55,7 @@ namespace Frazze_Business.Repository
 
         public async Task<IEnumerable<PhrasesDTO>> GetAll()
         {
-            return _mapper.Map<IEnumerable<Phrases>, IEnumerable<PhrasesDTO>>(_db.Phrases);
+            return _mapper.Map<IEnumerable<Phrases>, IEnumerable<PhrasesDTO>>(_db.Phrases.Include(u =>u.Cultures).Include(a => a.Application));
         }
 
         public async Task<PhrasesDTO> Update(PhrasesDTO objDTO)
@@ -69,11 +64,12 @@ namespace Frazze_Business.Repository
             if (objFromDb!=null)
             {
                 objFromDb.Phrase=objDTO.Phrase; 
-                objFromDb.Culture=objDTO.Culture;
+                //objFromDb.Culture=objDTO.Culture;
                 objFromDb.OrginalPhrase=objDTO.OrginalPhrase;
                 objFromDb.PhraseDescription=objDTO.PhraseDescription;
                 objFromDb.Element=objDTO.Element;
                 objFromDb.AppId=objDTO.AppId;
+                objFromDb.CultId=objDTO.CultId;
 
                 _db.Phrases.Update(objFromDb);
                 await _db.SaveChangesAsync();

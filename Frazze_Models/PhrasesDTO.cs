@@ -20,5 +20,8 @@ namespace Frazze_Models
 
         public int AppId { get; set; }
         public ApplicationsDTO Application { get; set; }
+
+        public int CultId { get; set; }
+        public CulturesDTO Cultures { get; set; }
     }
 }

@@ -5,6 +5,7 @@
 @using Frazze.Helper
 @inject IPhrasesRepository _phrasesRepository
 @inject IApplicationsRepository _applicationsRepository
+@inject ICulturesRepository _cultureRepository
 @inject NavigationManager _navigationManager
 @inject IJSRuntime _jsRuntime
 
@@ -27,10 +28,7 @@
                 <label>Phrase</label>
                 <InputText @bind-Value="PhraseCode.Phrase" class="form-control"></InputText>
                 @*<ValidationMessage For="()=>PhraseCode.PhraseCode"></ValidationMessage>*@
-                
-                <label>Culture</label>
-                <InputText @bind-Value="PhraseCode.Culture" class="form-control"></InputText>
-               
+              
                 <label>Element</label>
                 <InputText @bind-Value="PhraseCode.Element" class="form-control"></InputText>
             </div>
@@ -38,17 +36,26 @@
             
             <div class="form-group col-6">
                 <label>App-Category</label>
-                    <InputSelect @bind-Value="PhraseCode.AppId" class="form-select">
+                <InputSelect @bind-Value="PhraseCode.AppId" class="form-select">
                     <option value="0" disabled="disabled" selected>--Select App-Category--</option>
-                        @foreach (var cat in AppCategory)
+                    @foreach (var cat in AppCategory)
                     {
                         <option value="@cat.ApplicationID">@cat.ApplicationName</option>
                     }
                 </InputSelect>
             </div>
             
+            <div class="form-group col-6">
+                <label>Vilket språk</label>
+                <InputSelect @bind-Value="PhraseCode.CultId" class="form-select">
+                    <option value="0" disabled="disabled" selected>--Välj Språk--</option>
+                        @foreach (var cat in ValCulture)
+                    {
+                        <option value="@cat.CultureID">@cat.Culture</option>
+                    }
+                </InputSelect>
+            </div>
             
-
             <div class="form-group py-2">
                 @* <button class="btn btn-primary" type="submit">@Title</button>*@
                 <button class="btn btn-primary">@Title</button>
@@ -65,6 +72,7 @@
 
     private PhrasesDTO PhraseCode { get; set; } = new PhrasesDTO();
     private IEnumerable<ApplicationsDTO> AppCategory { get; set; } = new List<ApplicationsDTO>();
+    private IEnumerable<CulturesDTO> ValCulture { get; set; } = new List<CulturesDTO>();
     private string Title { get; set; } = "Create";
     public bool IsLoading { get; set; }
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -84,6 +92,7 @@
         IsLoading=true;
         StateHasChanged();
         AppCategory = await _applicationsRepository.GetAll();
+        ValCulture = await _cultureRepository.GetAll();
         if (Id!=0)
         {
             //update
