@@ -12,7 +12,7 @@ namespace Frazze_Models
     public class PhrasesDTO
     {   public int PhraseID { get; set; }
         public string? Phrase { get; set; }
-        public string? Culture { get; set; }
+        //public string? Culture { get; set; }
         public string? OrginalPhrase { get; set; }
         public string? PhraseDescription { get; set; }
         public string? Element { get; set; }
@@ -23,5 +23,8 @@ namespace Frazze_Models
 
         public int CultId { get; set; }
         public CulturesDTO Cultures { get; set; }
+
+        public int? PageId { get; set; }
+        public PagesDTO? Pages { get; set; }
     }
 }

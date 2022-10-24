@@ -4,6 +4,7 @@
 @using Frazze_DataAccess
 @inject ICulturesRepository _cultureRepository
 @inject NavigationManager _navigationManager
+@inject IJSRuntime _jsRuntime
 
 <div class="row my-2">
     <h3 class="card-title text-primary mb-3 ml-3">@Title Culture</h3>
@@ -76,11 +77,13 @@
         {
             //create
             await _cultureRepository.Create(CultureCode);
+            await _jsRuntime.ToastrSuccess("Språk created successfully.");
         }
         else
         {
             //update
             await _cultureRepository.Update(CultureCode);
+            await _jsRuntime.ToastrSuccess("Språk updated successfully.");
         }
         _navigationManager.NavigateTo("cultures");
     }

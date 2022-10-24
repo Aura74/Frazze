@@ -13,7 +13,7 @@ namespace Frazze_DataAccess
         [Key]
         public int PhraseID { get; set; }
         public string? Phrase { get; set; }
-        public string? Culture { get; set; }
+        //public string? Culture { get; set; }
         public string? OrginalPhrase { get; set; }
         public string? PhraseDescription { get; set; }
         public string? Element { get; set; }
@@ -28,5 +28,9 @@ namespace Frazze_DataAccess
         public int CultId { get; set; }
         [ForeignKey("CultId")]
         public Cultures Cultures { get; set; }
+
+        public int? PageId { get; set; }
+        [ForeignKey("PageId")]
+        public Pages? Pages { get; set; }
     }
 }

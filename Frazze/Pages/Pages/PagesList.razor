@@ -1,49 +1,52 @@
-﻿@page "/cultures"
-@using Frazze_DataAccess
-@inject ICulturesRepository _cultureRepository
+﻿@page "/pages"
+@inject IPagesRepository _pageRepository
 @inject IJSRuntime _jsRuntime
 
 <_DeleteConfirmation IsParentComponentProcessing="IsLoading" ConfirmationChanged="ConfirmDelete_Click"></_DeleteConfirmation>
 
 <div class="row mt-4">
     <div class="col-6">
-        <h4 class="card-title text-primary">Kultur-Listan</h4>
+        <h4 class="card-title text-primary">Page-Listan</h4>
     </div>
     <div class="col-4 offset-2">
-        <a href="cultures/create" class="btn btn-primary form-control"><i class="bi bi-plus-lg"></i> Add New Culture </a>
+        <a href="pages/create" class="btn btn-primary form-control"><i class="bi bi-plus-lg"></i> Add New Page </a>
     </div>
     
     <div class="col-12 p-3">
-        @if (Cultures.Any())
+        @if (Pages.Any())
         {
             <table class="table table-bordered">
                 <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Land</th>
+                    <th>PageName</th>
                     <th>Created</th>
+                    <th>ApplicationName</th>
                     <th>Knappar</th>
                 </tr>
                 </thead>
                 <tbody>
-                @foreach (var objp in Cultures)
+                    @foreach (var objp in Pages)
                 {
                     <tr>
                         <td>
-                            @objp.CultureID
+                            @objp.ID
                         </td> 
                         <td>
-                            @objp.Culture
+                            @objp.PageName
                         </td> 
                         <td>
                             @objp.created
                         </td> 
-
                         <td>
-                                <NavLink href="@($"cultures/edit/{objp.CultureID}")" class="btn-primary btn"><i class="bi bi-pencil"></i> Edit</NavLink>
+                            @objp.Application.ApplicationName
+                        </td> 
 
-                                    <button class="btn btn-danger" @onclick="()=>HandleDelete(objp.CultureID)"><i class="bi bi-trash"></i> Delete</button>
-                                </td>
+                            <td>
+                                <NavLink href="@($"pages/edit/{objp.ID}")" class="btn-primary btn"><i class="bi bi-pencil"></i> Edit</NavLink>
+
+                                    <button class="btn btn-danger" @onclick="()=>HandleDelete(objp.ID)"><i class="bi bi-trash"></i> Delete</button>
+                            </td>
                     </tr>
                 }
                 </tbody>
@@ -65,14 +68,13 @@
                 <p>No recrods found.</p>
             }
         }
-
-    </div>
+        </div>
 </div>
 
 @code {
-    private IEnumerable<CulturesDTO> Cultures { get; set; } = new List<CulturesDTO>();
+    private IEnumerable<PagesDTO> Pages { get; set; } = new List<PagesDTO>();
     public bool IsLoading { get; set; }
-    private int DeleteAppId { get; set; } = 0;
+    private int DeletePageId { get; set; } = 0;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -85,25 +87,25 @@
     {
         IsLoading=true;
         StateHasChanged();
-        Cultures = await _cultureRepository.GetAll();
+        Pages = await _pageRepository.GetAll();
         IsLoading=false;
         StateHasChanged();
     }
 
     private void HandleDelete(int id)
     {
-        DeleteAppId=id;
+        DeletePageId=id;
         _jsRuntime.InvokeVoidAsync("ShowDeleteConfirmationModal");
     }
 
     public async Task ConfirmDelete_Click(bool isConfirmed)
     {
         IsLoading=true;
-        if (isConfirmed && DeleteAppId!=0)
+        if (isConfirmed && DeletePageId!=0)
         {
             await Task.Delay(200);
     //delete
-            await _cultureRepository.Delete(DeleteAppId);
+            await _pageRepository.Delete(DeletePageId);
             await LoadPh();
             await _jsRuntime.InvokeVoidAsync("HideDeleteConfirmationModal");
         }

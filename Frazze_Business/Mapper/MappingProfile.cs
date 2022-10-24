@@ -17,6 +17,7 @@ namespace Frazze_Business.Mapper
             CreateMap<Phrases, PhrasesDTO>().ReverseMap();
             CreateMap<Applications, ApplicationsDTO>().ReverseMap();
             CreateMap<Cultures, CulturesDTO>().ReverseMap();
+            CreateMap<Pages, PagesDTO>().ReverseMap();
         }
     }
 }

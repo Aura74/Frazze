@@ -8,13 +8,13 @@ using Frazze_DataAccess;
 
 namespace Frazze_Business.Repository.IRepository
 {
-    public interface ICulturesRepository
+
+    public interface IPagesRepository
     {
-        public Task<CulturesDTO> Create(CulturesDTO objDTO);
-        public Task<CulturesDTO> Update(CulturesDTO objDTO);
+        public Task<PagesDTO> Create(PagesDTO objDTO);
+        public Task<PagesDTO> Update(PagesDTO objDTO);
         public Task<int> Delete(int id);
-        public Task<CulturesDTO> Get(int id);
-        public Task<IEnumerable<CulturesDTO>> GetAll();
+        public Task<PagesDTO> Get(int id);
+        public Task<IEnumerable<PagesDTO>> GetAll();
     }
 }
-

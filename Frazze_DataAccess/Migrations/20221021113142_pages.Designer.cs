@@ -4,6 +4,7 @@ using Frazze_DataAccess.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Frazze_DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221021113142_pages")]
+    partial class pages
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,9 +107,6 @@ namespace Frazze_DataAccess.Migrations
                     b.Property<string>("OrginalPhrase")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PageId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Phrase")
                         .HasColumnType("nvarchar(max)");
 
@@ -119,8 +118,6 @@ namespace Frazze_DataAccess.Migrations
                     b.HasIndex("AppId");
 
                     b.HasIndex("CultId");
-
-                    b.HasIndex("PageId");
 
                     b.ToTable("Phrases");
                 });
@@ -150,15 +147,9 @@ namespace Frazze_DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Frazze_DataAccess.Pages", "Pages")
-                        .WithMany()
-                        .HasForeignKey("PageId");
-
                     b.Navigation("Application");
 
                     b.Navigation("Cultures");
-
-                    b.Navigation("Pages");
                 });
 #pragma warning restore 612, 618
         }

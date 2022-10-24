@@ -18,6 +18,7 @@ builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddScoped<IPhrasesRepository, PhrasesRepository>();
 builder.Services.AddScoped<IApplicationsRepository, ApplicationsRepository>();
 builder.Services.AddScoped<ICulturesRepository, CulturesRepository>();
+builder.Services.AddScoped<IPagesRepository, PagesRepository>();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
