@@ -68,7 +68,7 @@ namespace Frazze_Business.Repository
                 objFromDb.OrginalPhrase=objDTO.OrginalPhrase;
                 objFromDb.PhraseDescription=objDTO.PhraseDescription;
                 objFromDb.Element=objDTO.Element;
-                objFromDb.AppId=objDTO.AppId;
+                //objFromDb.AppId=objDTO.AppId;
                 objFromDb.CultId=objDTO.CultId;
 
                 _db.Phrases.Update(objFromDb);

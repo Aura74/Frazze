@@ -17,20 +17,18 @@ namespace Frazze_DataAccess
         public string? OrginalPhrase { get; set; }
         public string? PhraseDescription { get; set; }
         public string? Element { get; set; }
-
-
+        
 
         public int AppId { get; set; }
         [ForeignKey("AppId")]
         public Applications Application { get; set; }
-
-
+        
         public int CultId { get; set; }
         [ForeignKey("CultId")]
         public Cultures Cultures { get; set; }
 
-        public int? PageId { get; set; }
-        [ForeignKey("PageId")]
-        public Pages? Pages { get; set; }
+        //public int? PageId { get; set; }
+        //[ForeignKey("PageId")]
+        //public Pages? Pages { get; set; }
     }
 }
