@@ -7,12 +7,55 @@
 
 <div class="row mt-4">
     <div class="col-6">
-        <h4 class="card-title text-primary">Phrase List</h4>
+        @*        <h4 class="card-title text-primary lettersInHead">
+            
+            
+            <span class="" style="color:#009BD9">P</span>
+            <span style="color:#FCCF00">H</span>
+            <span style="color:#E62310">R</span>
+            <span style="color:#44AF35">A</span>
+            <span style="color:#FCCF00">S</span>
+            <span style="color:#E62310">E</span>
+            <span style="color:#44AF35">S</span>
+        </h4>*@
+        @*        <h4 class="card-title text-primary lettersInHead2">
+            
+            
+            <span class="" style="color:#009BD9">P</span>
+            <span style="color:#FCCF00">H</span>
+            <span style="color:#E62310">R</span>
+            <span style="color:#44AF35">A</span>
+            <span style="color:#FCCF00">S</span>
+            <span style="color:#E62310">E</span>
+            <span style="color:#44AF35">S</span>
+        </h4>*@
+        @*        <h4 class="card-title text-primary lettersInHead3">
+            
+            
+            <span class="" style="color:#009BD9">P</span>
+            <span style="color:#FCCF00">H</span>
+            <span style="color:#E62310">R</span>
+            <span style="color:#44AF35">A</span>
+            <span style="color:#FCCF00">S</span>
+            <span style="color:#E62310">E</span>
+            <span style="color:#44AF35">S</span>
+        </h4>*@
+
+        <h4 class="card-title text-primary lettersInHead4">
+            <span class="LetterP" style="color:#009BD9">P</span>
+            <span class="LetterH" style="color:#FCCF00">H</span>
+            <span class="LetterR" style="color:#E62310">R</span>
+            <span class="LetterA" style="color:#44AF35">A</span>
+            <span class="LetterH" style="color:#FCCF00">S</span>
+            <span class="LetterR" style="color:#E62310">E</span>
+            <span class="LetterALast" style=" color:#44AF35">S</span>
+        </h4>
     </div>
+
     <div class="col-4 offset-2">
         <a href="phrase/create" class="btn btn-primary form-control"><i class="bi bi-plus-lg"></i> Add New Phrase </a>
     </div>
-    
+    <div class="lineSM"></div>
 <div class="col-12 p-3">
     @if (Phrases.Any())
     {
@@ -51,9 +94,9 @@
                     <td>
                         @objp.Application.ApplicationName
                     </td> 
-@*                    <td>
-                        @objp.Pages.PageName
-                    </td> *@
+                    <td>
+                         Under Konstruktion       @*  @objp.Pages.PageName*@
+                    </td> 
                     <td>
                                 <NavLink href="@($"phrase/edit/{objp.PhraseID}")" class="btn-primary btn"><i class="bi bi-pencil"></i> Edit</NavLink>
                                 <button class="btn btn-danger" @onclick="()=>HandleDelete(objp.PhraseID)"><i class="bi bi-trash"></i> Delete</button>
