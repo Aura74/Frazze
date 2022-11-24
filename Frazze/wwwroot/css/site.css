@@ -126,10 +126,32 @@ a, .btn-link {
     font-variant-position: sub;
 }
 
+.lineSM2 {
+    width: 1px;
+    height: 2px;
+    /*background: rgb(172, 140, 71);*/
+    margin-top: 20px;
+    border-top: 12px dotted #FCCF00;
+}
 .lineSM1 {
     width: 1px;
     height: 2px;
     /*background: rgb(172, 140, 71);*/
     margin-top: 20px;
-    border-top: 12px dotted rgb(172, 140, 71);
+    border-top: 12px dotted #009BD9;
 }
+.lineSM3 {
+    width: 1px;
+    height: 2px;
+    /*background: rgb(172, 140, 71);*/
+    margin-top: 20px;
+    border-top: 12px dotted #E62310;
+}
+.lineSM4 {
+    width: 1px;
+    height: 2px;
+    /*background: rgb(172, 140, 71);*/
+    margin-top: 20px;
+    border-top: 12px dotted #44AF35;
+}
+
