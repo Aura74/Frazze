@@ -99,6 +99,14 @@ a, .btn-link {
     letter-spacing: -4px;
 }
 
+.lettersInP {
+    font-family: 'Chewy', cursive;
+    font-size: 2.1rem;
+    -webkit-text-stroke: 1px black;
+    letter-spacing: -4px;
+
+
+}
 .LetterP {
     text-shadow: 2px 5px black;
     /*font-variant-position: super;*/
@@ -155,3 +163,93 @@ a, .btn-link {
     border-top: 12px dotted #44AF35;
 }
 
+.knapp1 {
+    background-color: #2ab110;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    font-size: 16px;
+    padding: 13px 10px;
+    color: white;
+    height: 50px;
+
+}
+
+.knapp2 {
+    background: hsl(340deg 100% 32%);
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    display: inline;
+    font-size: 16px;
+    padding: 13px 10px;
+    color: white;
+    height: 50px;
+}
+
+
+
+.goldText {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    font-family: 'Times New Roman', serif;
+    letter-spacing: 5px;
+    font-size: 30px;
+    font-weight: bold;
+    background-image: linear-gradient(to right, #462523 0, #cb9b51 22%, #f6e27a 45%, #f6f2c0 50%, #f6e27a 55%, #cb9b51 78%, #462523 100%);
+    color: transparent;
+    -webkit-background-clip: text;
+}
+
+.goldTextPH {
+    position: absolute;
+    transform: translate(50%, 0%);
+    font-family: 'Chewy', cursive;
+    letter-spacing: 4px;
+    font-size: 20px;
+    font-weight: normal;
+    background-image: linear-gradient(to right, #BB8C44 0, #cb9b51 22%, #f6e27a 45%, #f6f2c0 50%, #f6e27a 55%, #cb9b51 78%, #B38235 100%);
+    color: transparent;
+    -webkit-background-clip: text;
+}
+
+.goldTextAP {
+    position: absolute;
+    transform: translate(25%, 0%);
+    font-family: 'Chewy', cursive;
+    letter-spacing: 4px;
+    font-size: 20px;
+    font-weight: normal;
+    background-image: linear-gradient(to right, #BB8C44 0, #cb9b51 22%, #f6e27a 45%, #f6f2c0 50%, #f6e27a 55%, #cb9b51 78%, #B38235 100%);
+    color: transparent;
+    -webkit-background-clip: text;
+}
+
+.goldTextC {
+    position: absolute;
+    transform: translate(40%, 0%);
+    font-family: 'Chewy', cursive;
+    letter-spacing: 4px;
+    font-size: 20px;
+    font-weight: normal;
+    background-image: linear-gradient(to right, #BB8C44 0, #cb9b51 22%, #f6e27a 45%, #f6f2c0 50%, #f6e27a 55%, #cb9b51 78%, #B38235 100%);
+    color: transparent;
+    -webkit-background-clip: text;
+}
+
+.goldTextP {
+    position: absolute;
+    transform: translate(50%, 0%);
+    letter-spacing: 4px;
+    font-size: 20px;
+    font-weight: normal;
+    background-image: linear-gradient(to right, #BB8C44 0, #cb9b51 22%, #f6e27a 45%, #f6f2c0 50%, #f6e27a 55%, #cb9b51 78%, #B38235 100%);
+    color: transparent;
+    -webkit-background-clip: text;
+    font-family: 'Chewy', cursive;
+}

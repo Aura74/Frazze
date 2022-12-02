@@ -54,9 +54,29 @@
         </h4>
     </div>
 
-    <div class="col-4 offset-2">
-        <a href="phrase/create" class="btn btn-primary form-control"><i class="bi bi-plus-lg"></i> Add New Phrase </a>
+    <div class="col-4 offset-2" >
+        <a href="phrase/create" class="btn btn-primary form-control" style="border-radius: 25px;">
+       
+            <div class="lettersInP">
+                <span class="LetterA" style="color:#44AF35">A</span>
+                <span class="LetterH" style="color:#FCCF00">D</span>
+                <span class="LetterR" style="color:#E62310">D</span>
+                <span class="LetterR" style="color:#FCCF00">-</span>
+                <span class="LetterP" style="color: #009BD9">N</span>
+                <span class="LetterH" style="color: #FCCF00">E</span>
+                <span class="LetterR" style="color: #E62310">W</span>
+                <span class="LetterR" style="color:#FCCF00">-</span>
+                <span class="LetterP" style="color: #009BD9">P</span>
+                <span class="LetterH" style="color: #FCCF00">H</span>
+                <span class="LetterR" style="color: #E62310">R</span>
+                <span class="LetterA" style="color: #44AF35">A</span>
+                <span class="LetterH" style="color: #FCCF00">S</span>
+                <span class="LetterR" style="color: #E62310">E</span>
+            </div>
+        </a>
     </div>
+    
+
     <div class="lineSM1"></div>
     <div class="lineSM2"></div>
     <div class="lineSM3"></div>
@@ -74,7 +94,7 @@
     @if (Phrases.Any())
     {
         <table class="table table-bordered">
-            <thead>
+                <thead style="background-color:#FCCF00">
             <tr>
                 <th>Phrase</th>
                 <th>Element</th>
@@ -112,11 +132,19 @@
                          Under Konstruktion       @*  @objp.Pages.PageName*@
                     </td> 
                     <td>
-                                <NavLink href="@($"phrase/edit/{objp.PhraseID}")" class="btn-primary btn"><i class="bi bi-pencil"></i> Edit</NavLink>
-                                <button class="btn btn-danger" @onclick="()=>HandleDelete(objp.PhraseID)"><i class="bi bi-trash"></i> Delete</button>
-                            </td>
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                        <NavLink href="@($"phrase/edit/{objp.PhraseID}")" class="btn-primary btn">
+                            <i class="bi bi-pencil"></i> Edit
+                        </NavLink>
+
+                        <button class="btn btn-danger" @onclick="() => HandleDelete(objp.PhraseID)">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                                </div>
+                    </td>
                 </tr>
             }
+            
             </tbody>
         </table>
     }
